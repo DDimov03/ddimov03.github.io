@@ -6,4 +6,4 @@ Allow: /script.js
 Disallow: /private/
 Disallow: /admin/
 Disallow: /temp/
-Sitemap: https://your-domain.com/sitemap.xml 
+Sitemap: https://ddimov03.github.io/denis-dimov/
