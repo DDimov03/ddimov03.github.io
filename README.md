@@ -109,7 +109,7 @@ A modern, responsive portfolio website showcasing my professional experience, sk
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/DDimov03/portfolio.git
+git clone https://github.com/DDimov03/denis-dimov
 ```
 
 2. Navigate to the project directory:
