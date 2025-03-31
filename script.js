@@ -204,7 +204,8 @@ document.addEventListener('DOMContentLoaded', () => {
             contact: 'Contact',
             
             // Hero Section
-            greeting: 'Hello, I am <span class="highlight">Denis Dimov</span>',
+            greeting: 'Hello, I am',
+            name: 'Denis Dimov',
             downloadCV: '<i class="fas fa-download"></i> Download CV',
             
             // Experience Section
@@ -280,7 +281,8 @@ document.addEventListener('DOMContentLoaded', () => {
             contact: 'Контакти',
             
             // Hero Section
-            greeting: 'Здравейте, аз съм <span class="highlight">Денис Димов</span>',
+            greeting: 'Здравейте, аз съм',
+            name: 'Денис Димов',
             downloadCV: '<i class="fas fa-download"></i> Изтегли CV',
             
             // Experience Section
@@ -369,7 +371,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         // Update hero section
-        document.querySelector('.hero h1').innerHTML = t.greeting;
+        const heroTitle = document.querySelector('.hero-content h1');
+        if (lang === 'bg') {
+            heroTitle.innerHTML = `${translations.bg.greeting}<br><span class="highlight">${translations.bg.name}</span>`;
+        } else {
+            heroTitle.innerHTML = `${translations.en.greeting} <span class="highlight">${translations.en.name}</span>`;
+        }
         const downloadBtn = document.querySelector('.hero .download-btn:not(.language-btn)');
         if (downloadBtn) {
             downloadBtn.innerHTML = t.downloadCV;
@@ -495,11 +502,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     languageBtn.addEventListener('click', () => {
-        currentLang = currentLang === 'EN' ? 'BG' : 'EN';
-        const languageIcon = '<i class="fas fa-language"></i>';
-        languageBtn.innerHTML = `${languageIcon} ${currentLang}`;
-        updateContent(currentLang);
+        const newLang = currentLang === 'EN' ? 'BG' : 'EN';
+        languageBtn.innerHTML = `<i class="fas fa-language"></i><span>${newLang}</span>`;
+        document.documentElement.lang = newLang.toLowerCase();
+        updateContent(newLang.toLowerCase());
+        currentLang = newLang;
     });
+
+    // Handle hero section layout
+    function adjustHeroLayout() {
+        const heroContainer = document.querySelector('.hero-container');
+        const heroImage = document.querySelector('.hero-image');
+        const heroContent = document.querySelector('.hero-content');
+        
+        // Ensure the image maintains its position
+        heroImage.style.position = 'relative';
+        heroImage.style.zIndex = '1';
+        
+        // Adjust content position
+        heroContent.style.position = 'relative';
+        heroContent.style.zIndex = '2';
+        
+        // Reset container height if needed
+        heroContainer.style.minHeight = '100vh';
+    }
+
+    // Call on page load and language change
+    document.addEventListener('DOMContentLoaded', adjustHeroLayout);
+    window.addEventListener('resize', adjustHeroLayout);
 });
 
 // Add input animations
